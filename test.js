@@ -1,27 +1,24 @@
 (function () {
-  'use strict';
+    'use strict';
 
-  var miner = require('./miner.js');
+    var miner = require('./miner.js'),
+        urls = [
+            'https://en.wikipedia.org/wiki/Data_mining',
+            'http://www.wildfireinternet.co.uk',
+            'http://simple-seo.ecommerce.co.uk'
+        ];
 
-  var options = {
-    site: 'https://en.wikipedia.org/wiki/Data_mining',
-    threshold: 5,
-    limit: 20,
-    element: 'body',
-    exclude: []
-  };
+    urls.forEach(function (url) {
+        var options = {
+            site: url,
+            limit: 5,
+            element: 'body'
+        };
 
-  console.log('site:', options.site);
-  console.log('threshold:', options.threshold);
-  console.log('limit:', options.limit);
-
-  miner(
-    options,
-    function (error, words) {
-      if (error)
-        throw error;
-
-      console.log('words:', words);
-    }
-  );
+        console.log('Site:', options.site);
+        miner(options, function (error, words) {
+            if (error) throw error;
+            console.log('Words:', words);
+        });
+    });
 }());

@@ -1,6 +1,6 @@
 {
-  "name": "keyword-miner",
-  "version": "0.4.3",
+  "name": "keyword-miner-fork",
+  "version": "0.4.5",
   "description": "Extract a list of keywords from a website, sorted by word count.",
   "main": "miner.js",
   "scripts": {
@@ -14,6 +14,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mateogianolio/keyword-miner.git"
+    "url": "https://github.com/james-mckinnon/keyword-miner"
   }
 }

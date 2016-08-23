@@ -40,6 +40,7 @@
     options.element = options.element || 'body';
     options.exclude = options.exclude || [];
     options.ignoreInlineCSS = options.ignoreInlineCSS || true;
+    options.ignoreScripts = options.ignoreScripts || true;
 
     var protocol =
       options.site.indexOf('https://') !== -1 ?
@@ -58,13 +59,23 @@
         response.on('data', function (data) { body += data; });
         response.on('end', function () {
           dom = cheerio.load(body);
-          if (options.ignoreInlineCSS) {
-            doc = dom(options.element).html().replace(/style=(['"])[^\1]*?\1/ig, '').replace(/<style[^<]*?<\/style>/ig, '');
+
+          if (options.ignoreInlineCSS || options.ignoreScripts) {
+            doc = dom(options.element).html();
+
+            if (options.ignoreInlineCSS) {
+              doc = doc.replace(/style=(['"])[^\1]*?\1/ig, '').replace(/<style[^<]*?<\/style>/ig, '');
+            } 
+            
+            if (options.ignoreScripts) {
+              doc = doc.replace(/<script[\s\S]*?<\/script>/ig, '').replace(/<noscript[\s\S]*?<\/noscript>/ig, '');
+            }
+
             doc = dom(doc).text();
           } else {
             doc = dom(options.element).text();
           }
-
+          console.log(doc);
           corpus.addDoc(doc);
           corpus
             .trim()
