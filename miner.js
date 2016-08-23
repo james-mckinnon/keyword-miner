@@ -75,7 +75,7 @@
           } else {
             doc = dom(options.element).text();
           }
-          console.log(doc);
+
           corpus.addDoc(doc);
           corpus
             .trim()
